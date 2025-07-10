@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "craftyfsd",
+  "version": "${version}",
+  "name": "CraftyFSD",
+  "description": "Flight Simulator Deamon for Minecraft",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/craftyfsd/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "me.ajh123.craftyfsd.client.CraftyFSDDataGenerator"
+    ],
+    "client": [
+      "me.ajh123.craftyfsd.client.CraftyFSDClient"
+    ],
+    "main": [
+      "me.ajh123.craftyfsd.CraftyFSD"
+    ]
+  },
+  "mixins": [
+    "craftyfsd.mixins.json",
+    {
+      "config": "craftyfsd.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
