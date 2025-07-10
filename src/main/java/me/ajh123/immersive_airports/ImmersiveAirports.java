@@ -1,8 +1,8 @@
-package me.ajh123.craftyfsd;
+package me.ajh123.immersive_airports;
 
 import net.fabricmc.api.ModInitializer;
 
-public class CraftyFSD implements ModInitializer {
+public class ImmersiveAirports implements ModInitializer {
 
     @Override
     public void onInitialize() {

@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "craftyfsd",
+  "id": "immersive_airports",
   "version": "${version}",
-  "name": "CraftyFSD",
-  "description": "Flight Simulator Deamon for Minecraft",
+  "name": "Immersive Airports",
+  "description": "Immersive Airports is a comprehensive Minecraft mod that introduces realistic air traffic control systems and modular airport infrastructure.",
   "authors": [],
   "contact": {},
   "license": "GPL-3.0",
-  "icon": "assets/craftyfsd/icon.png",
+  "icon": "assets/immersive_airports/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "me.ajh123.craftyfsd.client.CraftyFSDDataGenerator"
+      "me.ajh123.immersive_airports.client.ImmersiveAirportsDataGenerator"
     ],
     "client": [
-      "me.ajh123.craftyfsd.client.CraftyFSDClient"
+      "me.ajh123.immersive_airports.client.ImmersiveAirportsClient"
     ],
     "main": [
-      "me.ajh123.craftyfsd.CraftyFSD"
+      "me.ajh123.immersive_airports.ImmersiveAirports"
     ]
   },
   "mixins": [
-    "craftyfsd.mixins.json",
+    "immersive_airports.mixins.json",
     {
-      "config": "craftyfsd.client.mixins.json",
+      "config": "immersive_airports.client.mixins.json",
       "environment": "client"
     }
   ],
