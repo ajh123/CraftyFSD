@@ -4,8 +4,8 @@
 
 It implements the Flight Simulator Protocol (FSP), commonly used by networks such as VATSIM and IVAO, but operates independently of any third-party services.
 
-> **Note:** Crafty FSD must be installed on both the Minecraft **server** and **client**.
-> However, clients that do not have Crafty FSD installed can still connect to the server and play normally.
+> **Note:** Crafty FSD must be installed on both the Minecraft **server** and **client**.  
+> However, clients without Crafty FSD installed can still connect and play normally.
 
 ## Features
 
@@ -13,27 +13,33 @@ It implements the Flight Simulator Protocol (FSP), commonly used by networks suc
   Simulates authentic pilot-to-pilot and pilot-to-ATC interactions using standard flight sim protocols.
 
 - **Weather-Aware Integration**  
-  Integrates with Minecraft’s existing weather system, allowing ATC and pilot interactions to reflect current in-game conditions such as rain or fog.
+  Reflects Minecraft’s in-game weather (e.g., rain, fog) in ATC and pilot communications for enhanced realism.
 
 - **Multiplayer Support**  
-  Allows multiple pilots to fly in the same Minecraft world with centralized ATC coordination.
+  Enables multiple pilots to fly together in the same world, with ATC managing communication and coordination.
 
 - **No External Dependencies**  
-  Unlike traditional FSDs, Crafty FSD runs entirely within Minecraft. No additional software or plugins are required outside the game.
+  Unlike traditional FSDs, Crafty FSD runs entirely within Minecraft—no separate software or plugins required.
+
+- **Designed for Fabric**  
+  Developed specifically for the Fabric modding platform, ensuring compatibility with a wide range of Fabric mods.
+
+- **Sinytra Connector Compatible**  
+  Fully compatible with Sinytra Connector, allowing integration with NeoForge-based mods.
 
 ## License
 
 Copyright (c) 2025 ajh123
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
 (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+You should have received a copy of the GNU General Public License  
+along with this program. If not, see <http://www.gnu.org/licenses/>.
