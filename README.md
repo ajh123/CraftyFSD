@@ -2,7 +2,7 @@
 
 **Crafty FSD** is a Flight Simulator Daemon for Minecraft that enables realistic communication between pilots and air traffic controllers (ATC) within the game.
 
-It implements the Flight Simulator Protocol (FSP), commonly used by networks such as VATSIM and IVAO, but operates independently of any third-party services.
+It does not implement the exact Flight Simulator Protocol (FSP), commonly used by networks such as VATSIM and IVAO, but operates a similar protocol tailored for Minecraft.
 
 > **Note:** Crafty FSD must be installed on both the Minecraft **server** and **client**.  
 > However, clients without Crafty FSD installed can still connect and play normally.
