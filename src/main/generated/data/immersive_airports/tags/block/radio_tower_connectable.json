@@ -1,0 +1,7 @@
+{
+  "values": [
+    "immersive_airports:ndb_antenna",
+    "immersive_airports:atis_antenna",
+    "immersive_airports:vhf_antenna"
+  ]
+}
