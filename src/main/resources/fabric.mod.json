@@ -31,5 +31,9 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "recommends": {
+    "voicechat": ">=${voicechat_mod_version}",
+    "immersive_aircraft": ">=${immersive_aircraft_version}"
   }
 }

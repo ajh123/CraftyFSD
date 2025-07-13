@@ -34,6 +34,23 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     mavenCentral()
+    maven { url = 'https://maven.maxhenkel.de/repository/public' }
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven { url "https://maven.conczin.net/Artifacts" }
+    maven { url "https://maven.parchmentmc.org" }
+    maven { url "https://maven.terraformersmc.com/releases/" }
+    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.architectury.dev/" }
+    maven { url "https://maven.parchmentmc.org" }
+    maven { url "https://nexus.resourcefulbees.com/repository/maven-public/" }
+    maven { url "https://maven.teamresourceful.com/repository/maven-public/" }
+    maven { url "https://cursemaven.com" }
 }
 
 dependencies {
@@ -43,18 +60,27 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
+    modRuntimeOnly "maven.modrinth:simple-voice-chat:fabric-${voicechat_mod_version}"
+
+    modImplementation("net.conczin:immersive_aircraft:${immersive_aircraft_version}+fabric")
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
+    inputs.property "voicechat_mod_version", project.voicechat_mod_version
+    inputs.property "immersive_aircraft_version", project.immersive_aircraft_version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+                "loader_version": project.loader_version,
+                "voicechat_mod_version": project.voicechat_mod_version,
+                "immersive_aircraft_version": project.immersive_aircraft_version
     }
 }
 
