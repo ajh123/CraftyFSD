@@ -1,4 +1,8 @@
 {
+  "block.immersive_airports.atis_antenna": "ATIS Antenna",
+  "block.immersive_airports.ndb_antenna": "NDB Antenna",
   "block.immersive_airports.radio_tower": "Radio Tower",
+  "block.immersive_airports.radio_tower_controller": "Radio Tower Controller",
+  "block.immersive_airports.vhf_antenna": "VHF Antenna",
   "itemGroup.immersive_airports.main": "Immersive Airports"
 }

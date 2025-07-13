@@ -1,22 +1,22 @@
-package me.ajh123.immersive_airports.content.radio;
+package me.ajh123.immersive_airports.content.radio.blocks;
 
+import me.ajh123.immersive_airports.content.radio.block_entities.RadioTowerControllerBlockEntity;
+import me.ajh123.immersive_airports.foundation.ModBlockEntities;
 import me.ajh123.immersive_airports.foundation.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 // This class represents a block for a radio tower in the Immersive Airports mod.
 // it's a modular block used to connect attached blocks together, such as antennas or other components.
@@ -88,5 +88,54 @@ public class RadioTowerBlock extends Block {
     private boolean canConnectHorizontally(BlockState state) {
         // Check if the block can connect horizontally to another component.
         return state.isIn(ModTags.RADIO_TOWER_CONNECTABLE);
+    }
+
+    public List<BlockEntity> findHorizontal(World world, BlockPos pos) {
+        List<BlockEntity> connectedBlocks = new java.util.ArrayList<>();
+        BlockState state = world.getBlockState(pos);
+        // Check each horizontal direction
+        for (Direction dir : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST}) {
+            BooleanProperty prop = switch (dir) {
+                case NORTH -> NORTH;
+                case SOUTH -> SOUTH;
+                case EAST -> EAST;
+                case WEST -> WEST;
+                default -> null;
+            };
+            if (prop != null && state.get(prop)) {
+                BlockPos neighborPos = pos.offset(dir);
+                BlockEntity be = world.getBlockEntity(neighborPos);
+                if (be != null) {
+                    connectedBlocks.add(be);
+                }
+            }
+        }
+        return connectedBlocks;
+    }
+
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+        if (!world.isClient) {
+            notifyController(world, pos);
+        }
+    }
+
+    private void notifyController(World world, BlockPos pos) {
+        BlockPos scanPos = pos;
+        BlockState state = world.getBlockState(scanPos);
+        // Walk down the tower until DOWN is false
+        while (state.get(RadioTowerBlock.DOWN)) {
+            scanPos = scanPos.down();
+            state = world.getBlockState(scanPos);
+        }
+        // Now scanPos is the bottom RadioTowerBlock, check below for controller
+        BlockPos belowPos = scanPos.down();
+        BlockState belowState = world.getBlockState(belowPos);
+        if (belowState.getBlock() instanceof RadioTowerControllerBlock) {
+            world.getBlockEntity(belowPos, ModBlockEntities.RADIO_TOWER_CONTROLLER)
+                .ifPresent(RadioTowerControllerBlockEntity::onTowerUpdate);
+        }
     }
 }

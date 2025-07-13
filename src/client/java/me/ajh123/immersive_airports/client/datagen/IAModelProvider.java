@@ -4,10 +4,12 @@ import me.ajh123.immersive_airports.ImmersiveAirports;
 import me.ajh123.immersive_airports.foundation.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class IAModelProvider extends FabricModelProvider {
@@ -23,6 +25,23 @@ public class IAModelProvider extends FabricModelProvider {
                 BlockStateVariant.create().put(VariantSettings.MODEL, radioTowerId)
         ));
 
+        Identifier basicAntenna = ImmersiveAirports.identifier("block/basic_antenna");
+        Block[] antennas = new Block[]{
+                ModBlocks.VHF_ANTENNA,
+                ModBlocks.NDB_ANTENNA,
+                ModBlocks.ATIS_ANTENNA
+        };
+        for (Block antenna : antennas) {
+            blockStateModelGenerator.registerSingleton(
+                    antenna,
+                    TextureMap.all(antenna),
+                    new Model(Optional.of(basicAntenna), Optional.empty())
+            );
+//            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
+//                    antenna,
+//                    BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna)
+//            ));
+        }
 //        blockStateModelGenerator.blockStateCollector.accept(createBlockWithConnections(ModBlocks.RADIO_TOWER, radioTowerId));
     }
 

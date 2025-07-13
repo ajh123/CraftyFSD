@@ -16,5 +16,9 @@ public class IAEnglishLangProvider extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("itemGroup.immersive_airports.main", "Immersive Airports");
         translationBuilder.add("block.immersive_airports.radio_tower", "Radio Tower");
+        translationBuilder.add("block.immersive_airports.radio_tower_controller", "Radio Tower Controller");
+        translationBuilder.add("block.immersive_airports.vhf_antenna", "VHF Antenna");
+        translationBuilder.add("block.immersive_airports.ndb_antenna", "NDB Antenna");
+        translationBuilder.add("block.immersive_airports.atis_antenna", "ATIS Antenna");
     }
 }
