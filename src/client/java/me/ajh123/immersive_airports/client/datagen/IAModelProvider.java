@@ -1,6 +1,7 @@
 package me.ajh123.immersive_airports.client.datagen;
 
 import me.ajh123.immersive_airports.ImmersiveAirports;
+import me.ajh123.immersive_airports.content.radio.blocks.AbstractAntennasBlock;
 import me.ajh123.immersive_airports.foundation.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -8,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -32,21 +34,30 @@ public class IAModelProvider extends FabricModelProvider {
                 ModBlocks.ATIS_ANTENNA
         };
         for (Block antenna : antennas) {
-            blockStateModelGenerator.registerSingleton(
-                    antenna,
-                    TextureMap.all(antenna),
-                    new Model(Optional.of(basicAntenna), Optional.empty())
-            );
-//            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
-//                    antenna,
-//                    BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna)
-//            ));
+            VariantSetting<VariantSettings.Rotation> yRot = VariantSettings.Y;
+            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
+                    antenna
+            ).coordinate(BlockStateVariantMap.create(AbstractAntennasBlock.FACING)
+                    .register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna))
+                    .register(Direction.EAST, BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna).put(yRot, VariantSettings.Rotation.R90))
+                    .register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna).put(yRot, VariantSettings.Rotation.R180))
+                    .register(Direction.WEST, BlockStateVariant.create().put(VariantSettings.MODEL, basicAntenna).put(yRot, VariantSettings.Rotation.R270))
+            ));
         }
-//        blockStateModelGenerator.blockStateCollector.accept(createBlockWithConnections(ModBlocks.RADIO_TOWER, radioTowerId));
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        Identifier basicAntenna = ImmersiveAirports.identifier("block/basic_antenna");
+        Model antennaModel = new Model(Optional.of(basicAntenna), Optional.empty());
+        Block[] antennas = new Block[]{
+                ModBlocks.VHF_ANTENNA,
+                ModBlocks.NDB_ANTENNA,
+                ModBlocks.ATIS_ANTENNA
+        };
+        for (Block antenna : antennas) {
+            itemModelGenerator.register(antenna.asItem(), antennaModel);
+        }
     }
 
 //    private static BlockStateSupplier createBlockWithConnections(Block block, Identifier modelId) {

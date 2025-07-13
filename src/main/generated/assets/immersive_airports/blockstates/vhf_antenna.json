@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "immersive_airports:block/vhf_antenna"
+    "facing=east": {
+      "model": "immersive_airports:block/basic_antenna",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "immersive_airports:block/basic_antenna"
+    },
+    "facing=south": {
+      "model": "immersive_airports:block/basic_antenna",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "immersive_airports:block/basic_antenna",
+      "y": 270
     }
   }
 }

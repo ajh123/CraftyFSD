@@ -25,13 +25,11 @@ public class ModItemGroups {
         Registry.register(Registries.ITEM_GROUP, MAIN_GROUP_KEY, MAIN_GROUP);
 
         ItemGroupEvents.modifyEntriesEvent(ModItemGroups.MAIN_GROUP_KEY).register((itemGroup) -> {
-            Registries.ITEM.getEntrySet().forEach(entry -> {
-                RegistryKey<Item> key = entry.getKey();
-                Identifier id = key.getValue();
-                if (id.getNamespace().equals(ImmersiveAirports.MOD_ID)) {
-                    itemGroup.add(entry.getValue());
-                }
-            });
+            itemGroup.add(ModBlocks.RADIO_TOWER.asItem());
+            itemGroup.add(ModBlocks.RADIO_TOWER_CONTROLLER.asItem());
+            itemGroup.add(ModBlocks.ATIS_ANTENNA.asItem());
+            itemGroup.add(ModBlocks.NDB_ANTENNA.asItem());
+            itemGroup.add(ModBlocks.VHF_ANTENNA.asItem());
         });
     }
 }
