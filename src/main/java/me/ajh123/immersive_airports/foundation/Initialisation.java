@@ -5,5 +5,6 @@ public class Initialisation {
         ModBlocks.initialize();
         ModBlockEntities.initialize();
         ModItemGroups.initialize();
+        ModScreenHandlers.initialize();
     }
 }

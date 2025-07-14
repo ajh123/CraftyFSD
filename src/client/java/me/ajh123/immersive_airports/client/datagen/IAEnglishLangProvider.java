@@ -24,5 +24,9 @@ public class IAEnglishLangProvider extends FabricLanguageProvider {
                 "message.immersive_airports.atis.full",
                 "ATIS: %s, Information %s. Time %s Zulu. Wind %s° at %s knots, visibility %s kilometers, %s, temperature %s°, dewpoint %s°, altimeter %s. Advise on initial contact you have Information %s"
         );
+        translationBuilder.add(
+                "container.immersive_airports.radio_tower_controller",
+                "Radio Tower Controller"
+        );
     }
 }

@@ -2,6 +2,7 @@ package me.ajh123.immersive_airports.content.radio.blocks;
 
 import com.mojang.serialization.MapCodec;
 import me.ajh123.immersive_airports.content.radio.block_entities.RadioTowerControllerBlockEntity;
+import me.ajh123.immersive_airports.content.radio.screens.RadioTowerControllerScreenHandler;
 import me.ajh123.immersive_airports.foundation.ModBlockEntities;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -10,14 +11,19 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-
 public class RadioTowerControllerBlock extends BlockWithEntity {
+    private static final Text TITLE = Text.translatable("container.immersive_airports.radio_tower_controller");
+
     public RadioTowerControllerBlock(Settings settings) {
         super(settings);
     }
@@ -52,5 +58,13 @@ public class RadioTowerControllerBlock extends BlockWithEntity {
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return new SimpleNamedScreenHandlerFactory(
+                (syncId, inventory, player) -> new RadioTowerControllerScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), TITLE
+        );
     }
 }

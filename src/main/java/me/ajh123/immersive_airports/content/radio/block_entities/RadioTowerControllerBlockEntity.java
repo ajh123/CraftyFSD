@@ -3,6 +3,7 @@ package me.ajh123.immersive_airports.content.radio.block_entities;
 import me.ajh123.immersive_airports.content.radio.antennas.Antenna;
 import me.ajh123.immersive_airports.content.radio.antennas.AntennaProvider;
 import me.ajh123.immersive_airports.content.radio.blocks.RadioTowerBlock;
+import me.ajh123.immersive_airports.content.radio.screens.RadioTowerControllerScreenHandler;
 import me.ajh123.immersive_airports.foundation.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -93,19 +94,22 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
     }
 
     public ActionResult onUse(PlayerEntity player, BlockHitResult hit) {
-        // Log devices to player's chat
         if (world == null || world.isClient) return ActionResult.SUCCESS;
-        Text message = Text.literal("Radio Tower Antennas:\n");
-        if (rawAntennas.isEmpty()) {
-            message.getSiblings().add(Text.literal("No antennas connected."));
-        } else {
-            for (Antenna antenna : this.collapsedAntennas) {
-                message.getSiblings().add(Text.literal(
-                        String.format("- %s x%d (Required: %d)\n", antenna.getType(), getAntennaCount(antenna), antenna.minimumCountRequired())
-                ));
-            }
-        }
-        player.sendMessage(message, false);
+//        // Log devices to player's chat
+//        Text message = Text.literal("Radio Tower Antennas:\n");
+//        if (rawAntennas.isEmpty()) {
+//            message.getSiblings().add(Text.literal("No antennas connected."));
+//        } else {
+//            for (Antenna antenna : this.collapsedAntennas) {
+//                message.getSiblings().add(Text.literal(
+//                        String.format("- %s x%d (Required: %d)\n", antenna.getType(), getAntennaCount(antenna), antenna.minimumCountRequired())
+//                ));
+//            }
+//        }
+//        player.sendMessage(message, false);
+        // Open the GUI for the player
+        BlockState state = world.getBlockState(pos);
+        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         return ActionResult.CONSUME;
     }
 
