@@ -126,7 +126,7 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
         }
 
         // Tick all antennas
-        for (Antenna antenna : radioTowerControllerBlockEntity.rawAntennas) {
+        for (Antenna antenna : radioTowerControllerBlockEntity.collapsedAntennas) {
             // Don't tick if we don't meet the minimum count required
             if (radioTowerControllerBlockEntity.getAntennaCount(antenna) >= antenna.minimumCountRequired()) {
                 antenna.tick();
