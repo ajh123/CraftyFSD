@@ -20,5 +20,9 @@ public class IAEnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add("block.immersive_airports.vhf_antenna", "VHF Antenna");
         translationBuilder.add("block.immersive_airports.ndb_antenna", "NDB Antenna");
         translationBuilder.add("block.immersive_airports.atis_antenna", "ATIS Antenna");
+        translationBuilder.add(
+                "message.immersive_airports.atis.full",
+                "ATIS: %s, Information %s. Time %s Zulu. Wind %s° at %s knots, visibility %s kilometers, %s, temperature %s°, dewpoint %s°, altimeter %s. Advise on initial contact you have Information %s"
+        );
     }
 }

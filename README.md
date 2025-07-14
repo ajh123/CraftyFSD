@@ -1,13 +1,36 @@
 # Immersive Airports
 
-**Immersive Airports** is a comprehensive Minecraft mod that introduces realistic air traffic control systems and modular airport infrastructure. Designed to integrate seamlessly with third-party aircraft mods such as **Immersive Aircraft**, this mod allows players to build and operate realistic airports with functional ATC, radar, and navigation systems.
+**Immersive Airports** is a Minecraft mod that brings realistic air traffic control systems and modular airport infrastructure
+— designed as a backbone for immersive aviation experiences.
+
+Designed to integrate seamlessly with third-party aircraft mods such as **Immersive Aircraft**,
+this mod allows players to build and operate realistic airports with functional ATC, radar, and navigation systems.
 
 While **Immersive Airports** does not simulate aircraft itself, it provides the systems, blocks, and environment to support immersive aviation experiences in Minecraft.
 
 > **Note:** Immersive Airports **must be installed on both the Minecraft server and client**.
 > Clients **without the mod will not be able to connect** due to custom blocks and items introduced by the mod.
 
-## Features
+## Features currently implemented
+
+* **Antennas and Radio Towers**
+  
+  * Currently just ATIS, NDB, and VHF antennas - that simply do nothing yet (Except for ATIS which somewhat works).
+  * Radio Towers for structural support of antennas and other blocks.
+  * Radio Tower Controller for managing antennas connected to a tower.
+
+* **Third-Party Mod Integration**
+
+  * Works seamlessly with flight mods like **Immersive Aircraft** and other vehicle mods.
+  * Focuses on realistic infrastructure and communication rather than implementing aircraft directly.
+
+* **Designed for Fabric**
+  Built natively for the Fabric modding ecosystem for high performance and wide compatibility.
+
+* **Sinytra Connector Support**
+  Compatible with NeoForge-based mods via Sinytra Connector, supporting cross-ecosystem modpacks.
+
+## Features (TODO)
 
 * **Realistic ATC Simulation**
 
@@ -28,17 +51,6 @@ While **Immersive Airports** does not simulate aircraft itself, it provides the 
 
   * Enables multiple players to act as pilots or air traffic controllers across player-built airports.
   * Encourages shared airspace, IFR/VFR coordination, and full airport operations.
-
-* **Third-Party Mod Integration**
-
-  * Works seamlessly with flight mods like **Immersive Aircraft** and other vehicle mods.
-  * Focuses on realistic infrastructure and communication rather than implementing aircraft directly.
-
-* **Designed for Fabric**
-  Built natively for the Fabric modding ecosystem for high performance and wide compatibility.
-
-* **Sinytra Connector Support**
-  Compatible with NeoForge-based mods via Sinytra Connector, supporting cross-ecosystem modpacks.
 
 ## License
 

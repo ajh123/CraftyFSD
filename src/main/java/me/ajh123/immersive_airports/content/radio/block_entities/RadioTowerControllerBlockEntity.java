@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RadioTowerControllerBlockEntity extends BlockEntity {
-    private final List<Antenna> antennas = new ArrayList<>();
+    private final List<Antenna> rawAntennas = new ArrayList<>();
+    private final List<Antenna> collapsedAntennas = new ArrayList<>();
     private boolean firstTick = true;
     private boolean pendingEnumeration = false;
 
@@ -55,6 +56,11 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
                         Antenna antenna = provider.getAntenna();
                         if (antenna != null) {
                             antennas.add(antenna);
+                            // If the antenna is not already in the rawAntennas list, reset its state and set the controller
+                            if (!rawAntennas.contains(antenna)) {
+                                antenna.resetState();
+                                antenna.setController(this);
+                            }
                         }
                     }
                 }
@@ -69,8 +75,9 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
             scanPos = scanPos.up();
         }
 
-        this.antennas.clear();
-        this.antennas.addAll(antennas);
+        this.rawAntennas.clear();
+        this.rawAntennas.addAll(antennas);
+        this.collapseAntennas(); // Collapse to unique antenna types
     }
 
     // Helper to get the BooleanProperty for a given direction
@@ -88,15 +95,17 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
     public ActionResult onUse(PlayerEntity player, BlockHitResult hit) {
         // Log devices to player's chat
         if (world == null || world.isClient) return ActionResult.SUCCESS;
-        StringBuilder message = new StringBuilder("Radio Tower Antennas:\n");
-        if (antennas.isEmpty()) {
-            message.append("No antennas connected.");
+        Text message = Text.literal("Radio Tower Antennas:\n");
+        if (rawAntennas.isEmpty()) {
+            message.getSiblings().add(Text.literal("No antennas connected."));
         } else {
-            for (Antenna antenna : antennas) {
-                message.append("- ").append(antenna.getType()).append("\n");
+            for (Antenna antenna : this.collapsedAntennas) {
+                message.getSiblings().add(Text.literal(
+                        String.format("- %s x%d (Required: %d)\n", antenna.getType(), getAntennaCount(antenna), antenna.minimumCountRequired())
+                ));
             }
         }
-        player.sendMessage(Text.of(message.toString()), false);
+        player.sendMessage(message, false);
         return ActionResult.CONSUME;
     }
 
@@ -111,5 +120,45 @@ public class RadioTowerControllerBlockEntity extends BlockEntity {
             radioTowerControllerBlockEntity.enumerateTowerAntennas();
             radioTowerControllerBlockEntity.pendingEnumeration = false;
         }
+
+        // Tick all antennas
+        for (Antenna antenna : radioTowerControllerBlockEntity.rawAntennas) {
+            // Don't tick if we don't meet the minimum count required
+            if (radioTowerControllerBlockEntity.getAntennaCount(antenna) >= antenna.minimumCountRequired()) {
+                antenna.tick();
+            }
+        }
+    }
+
+    /**
+     * Returns a list of antennas, collapsed to exactly one of each type.
+     * This is used to avoid duplicate antennas in the list.
+     */
+    private void collapseAntennas() {
+        List<Antenna> collapsed = new ArrayList<>();
+        for (Antenna antenna : rawAntennas) {
+            boolean found = false;
+            for (Antenna existing : collapsed) {
+                if (existing.getType().equals(antenna.getType())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                collapsed.add(antenna);
+            }
+        }
+        this.collapsedAntennas.clear();
+        this.collapsedAntennas.addAll(collapsed);
+    }
+
+    private int getAntennaCount(Antenna type) {
+        int count = 0;
+        for (Antenna antenna : rawAntennas) {
+            if (antenna.getType().equals(type.getType())) {
+                count++;
+            }
+        }
+        return count;
     }
 }
